@@ -1,0 +1,17 @@
+#!/bin/bash
+
+javac cbcmac_validate.java
+while getopts :k:m:t: option
+	do
+		case "$option" in
+		k)
+			keyfile="$OPTARG"
+			;;
+		m)
+			infile="$OPTARG"
+			;;
+		t)	outfile="$OPTARG"
+			;;
+			esac
+	done
+	java cbcmac_validate -k $keyfile -m $infile -t $outfile

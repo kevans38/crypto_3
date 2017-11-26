@@ -1,0 +1,19 @@
+#!/bin/bash
+
+javac unlock.java
+while getopts :d:p:r:vk: option
+	do
+		case "$option" in
+		d)
+			directory="$OPTARG"
+			;;
+		p)
+			pubkey="$OPTARG"
+			;;
+		r)	privkey="$OPTARG"
+			;;
+		vk)	vpk="$OPTARG"
+			;;
+			esac
+	done
+	java unlock -d $directory -p $pubkey -r $privkey -vk $vpk

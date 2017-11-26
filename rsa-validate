@@ -1,0 +1,17 @@
+#!/bin/bash
+
+javac rsa_validate.java
+while getopts :k:m:s: option
+	do
+		case "$option" in
+		k)
+			keyfile="$OPTARG"
+			;;
+		m)
+			infile="$OPTARG"
+			;;
+		s)	outfile="$OPTARG"
+			;;
+			esac
+	done
+	java rsa_validate -k $keyfile -m $infile -s $outfile
