@@ -238,7 +238,7 @@ public class rsa_funcs
 		BigInteger int_msg = new BigInteger(appended_bytes);
 		//This does ( int_msg )^e mod N 
 		//cipher_text = modex(int_msg, rsa_e, rsa_N);
-		int_msg.modPow(rsa_e, rsa_N);
+		int_msg = int_msg.modPow(rsa_e, rsa_N);
 		
 		return int_msg;
 		
