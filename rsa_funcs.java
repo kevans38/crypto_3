@@ -72,6 +72,36 @@ public class rsa_funcs
 		
 		return input_data;		
 	}
+
+	public static String sig_file (String [] args) throws Exception{
+
+
+
+		String sig_data = null;
+
+		for ( int i = 0; i < args.length; i++){
+
+
+			if (args[i].equals("-s")){
+
+				i++;
+				sig_data = read_string_file(args[i]);
+				break;
+
+			}
+
+		}
+
+		if (sig_data == null){
+
+			System.err.println("No file was found. Need to exit");
+			System.exit(0);
+		}
+
+		return sig_data;
+
+
+	}
 	
 	/*
 	 * Gets output file name from command line with -o
