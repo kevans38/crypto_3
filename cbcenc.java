@@ -5,6 +5,16 @@ public class cbcenc
 	// so 128 bits / 8 = 16 bytes
 	static int BLOCK_SIZE = BIT_BLOCK_SIZE/8;
 	
+	byte[] cipher_text;
+	
+	public cbcenc (byte[] key_data, byte[] input_data, byte[] iv_data){
+
+		
+
+
+
+	}
+	
 	public static void main(String[] args) throws Exception
 	{
 		//use test_printing(byte[]) to print out a byte array
