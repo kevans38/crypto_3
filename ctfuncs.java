@@ -23,8 +23,12 @@ public class ctfuncs
 		//provide details for mode and padding scheme
 		Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
 
+
+
 		//init(int opmode, Key key) Initializes this cipher mode with a key.
 		cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+		
+		
 
 		// public final byte[] doFinal(byte[] input)
 		byte[] ct = cipher.doFinal(data);
@@ -87,7 +91,7 @@ public class ctfuncs
 
 		if (data == null)
 		{
-			System.err.println("No file was found. Need to exit");
+			System.err.println("No file was found with -k. Need to exit");
 			System.exit(0);
 		}
 		
@@ -118,7 +122,7 @@ public class ctfuncs
 		
 		if (data == null)
 		{
-			System.err.println("No file was found. Need to exit");
+			System.err.println("No file was found with -i. Need to exit");
 			System.exit(0);
 		}
 		
@@ -126,8 +130,83 @@ public class ctfuncs
 					
 	}
 	
+	/* 
+	 * LAB 3: looks for input file containing message -m, error if not found
+	 */
+	public static byte[] input_file_msg ( String[] args ) throws Exception
+	{
+		byte[] data = null;
+				
+		for ( int i = 0; i < args.length; i++ )
+		{
+			//Tries to find input file
+			if ( args[i].equals("-m") )
+			{
+				i++;
+				
+				data = read_file(args[i]);
+				
+				break;
+			}
+			
+		}
+		
+		if (data == null)
+		{
+			System.err.println("No file was found with -m. Need to exit");
+			System.exit(0);
+		}
+		return data;			
+	}
+	
+	/* 
+	 * LAB 3: looks for input file containing message -t, error if not found
+	 */
+	public static byte[] input_file_intag ( String[] args ) throws Exception
+	{
+		byte[] data = null;
+				
+		for ( int i = 0; i < args.length; i++ )
+		{
+			//Tries to find input file
+			if ( args[i].equals("-t") )
+			{
+				i++;
+				
+				data = read_file(args[i]);
+				
+				break;
+			}
+			
+		}
+		
+		if (data == null)
+		{
+			System.err.println("No file was found with -t. Need to exit");
+			System.exit(0);
+		}
+		return data;			
+	}
+	
 	/*
-	 * Gets output file name from command line with -o
+	 *  LAB 3: Gets output file name from command line with -t
+	 */
+	public static void output_file_tag ( String[] args, byte[] output ) throws Exception
+	{
+		for ( int i = 0; i < args.length; i++ )
+		{
+			//-o <output file>: required, specifies the path of the file where the resulting output is stored
+			if ( args[i].equals("-t") )
+			{
+				i++;
+				write_file( args[i], output );
+				break;
+			}
+		}
+	}
+	
+	/*
+	 *  Gets output file name from command line with -o
 	 */
 	public static void output_file ( String[] args, byte[] output ) throws Exception
 	{
@@ -175,6 +254,18 @@ public class ctfuncs
 			data = IVgen();
 			return data;
 		}
+		
+	}
+	
+	//puts into to byte array and uses little endian to do it--NOT USING
+	public static final byte[] intToByteArray(int value) {
+		
+	    return new byte[] {
+	            (byte)(value >>> 24),
+	            (byte)(value >>> 16),
+	            (byte)(value >>> 8),
+	            (byte)value
+	    };
 		
 	}
 	
