@@ -40,8 +40,6 @@ public class rsa_validate{
 		
 		rsa_dec R = new rsa_dec(key_data, S);
 		
-		System.out.println("B: " + B/*.mod(key_data[1])*/);
-		System.out.println("R: " + R.plaintext);	
 		if (R.plaintext.equals(B.mod(key_data[1]))){
 
 			System.out.println("True");

@@ -10,7 +10,6 @@ public class rsa_sign{
 
 		
 		BigInteger message_hash = hash(message);
-		System.out.println("Mhash: " + message_hash);
 		encrypted_data = rsa_funcs.encrypt_data(key_data, message_hash);		
 
 	}
@@ -49,7 +48,6 @@ public class rsa_sign{
 		 the resulting value of the contents*/
 		message = rsa_funcs.input_file(args);
 		rsa_sign R = new rsa_sign(key_data, message);
-		System.out.println("Encrypted: " + R.encrypted_data.toString());		
 		String output_data = new String(R.encrypted_data.toString());
 		rsa_funcs.output_file(args, output_data);
 

@@ -29,10 +29,8 @@ public class rsa_dec{
 		/*Take the ciphertext and raise it by (c^d) mod N or put another way: ((m^e)^d) mod N*/
 		//original_msg = rsa_funcs.modex(this.ciphertext,key[2],key[1]);
 		original_msg = this.ciphertext;
-		System.out.println("OG: " + original_msg);
 		original_msg = original_msg.modPow(key[2], key[1]);
 		
-		System.out.println("OG: " + original_msg);
 		original_bytes = original_msg.toByteArray();
 		
 		/*Go through the cipher text until we find the 0x00 byte*/	
@@ -46,7 +44,6 @@ public class rsa_dec{
 		plain_bytes = Arrays.copyOfRange(original_bytes, (x + 1), original_bytes.length);
 		this.plaintext = new BigInteger(plain_bytes);
 		
-		System.out.println("Ptxt: " + this.plaintext);		
 		return;
 		
 	}

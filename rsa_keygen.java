@@ -69,7 +69,7 @@ public class rsa_keygen {
 			key_data = rsa_funcs.read_integer_file(private_keyfile);
 
 		}
-		
+
 		String filename = public_keyfile + "-casig";
 		/*Create and rsa signature on the public key*/
 		rsa_sign R = new rsa_sign (key_data, rsa_funcs.read_string_file(public_keyfile));
@@ -80,51 +80,51 @@ public class rsa_keygen {
 		 * 	returns a possible value for e, preferably a smaller value
 		 * 	that is coprime to the order of the group	
 		 */
-		
-}
-		private static BigInteger coprime_val(BigInteger order) {
 
-			BigInteger e = new BigInteger("-1");
-			BigInteger temp = new BigInteger("0");
-			BigInteger param = new BigInteger("1");
-
-			int i;
-
-			//loop through possible lower primes to find one that is coprime
-			for(i = Array.getLength(low_primes)-1; i >= 0 ; i--){
-
-				param = BigInteger.valueOf(low_primes[i]); 
-				temp = order.gcd(param);//returns gcd b/n the 2 numbers
-				if(temp.equals(one)) {
-					e = BigInteger.valueOf(low_primes[i]);
-				}			
-			}
-
-			return e;
-		}
-
-		/* write_keys_file: 
-		 * 	Writes keys to chosen file
-		 */
-		public static void write_keys_file(String filename, String num_bits, BigInteger N, BigInteger temp) throws Exception
-		{
-			PrintWriter writer = new PrintWriter(filename, "UTF-8");
-
-			try 
-			{	
-				writer.println(num_bits);
-				writer.println(N.toString());
-				writer.println(temp.toString());
-			}
-			catch (Exception e)
-			{
-				System.err.format("Exception occurred trying to write '%s'.", filename);
-				e.printStackTrace();
-			}
-			finally
-			{
-				writer.close();
-			}
-
-		}
 	}
+	private static BigInteger coprime_val(BigInteger order) {
+
+		BigInteger e = new BigInteger("-1");
+		BigInteger temp = new BigInteger("0");
+		BigInteger param = new BigInteger("1");
+
+		int i;
+
+		//loop through possible lower primes to find one that is coprime
+		for(i = Array.getLength(low_primes)-1; i >= 0 ; i--){
+
+			param = BigInteger.valueOf(low_primes[i]); 
+			temp = order.gcd(param);//returns gcd b/n the 2 numbers
+			if(temp.equals(one)) {
+				e = BigInteger.valueOf(low_primes[i]);
+			}			
+		}
+
+		return e;
+	}
+
+	/* write_keys_file: 
+	 * 	Writes keys to chosen file
+	 */
+	public static void write_keys_file(String filename, String num_bits, BigInteger N, BigInteger temp) throws Exception
+	{
+		PrintWriter writer = new PrintWriter(filename, "UTF-8");
+
+		try 
+		{	
+			writer.println(num_bits);
+			writer.println(N.toString());
+			writer.println(temp.toString());
+		}
+		catch (Exception e)
+		{
+			System.err.format("Exception occurred trying to write '%s'.", filename);
+			e.printStackTrace();
+		}
+		finally
+		{
+			writer.close();
+		}
+
+	}
+}
