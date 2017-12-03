@@ -1,6 +1,7 @@
 #!/bin/bash
 
 javac lock.java
+javac rsa_sign.java
 while getopts :d:p:r:vk: option
 	do
 		case "$option" in
@@ -16,4 +17,7 @@ while getopts :d:p:r:vk: option
 			;;
 			esac
 	done
-	java lock -d $directory -p $pubkey -r $privkey -vk $vpk
+
+#Lock creates an AES key, encrypts it with pubkey, and writes to symmetric key manifest
+java lock $pubkey
+java rsa_sign \-k $privkey -m manifest \-s manifest.sig 
