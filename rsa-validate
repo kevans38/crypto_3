@@ -14,4 +14,4 @@ while getopts :k:m:s: option
 			;;
 			esac
 	done
-	java rsa_validate -k $keyfile -m $infile -s $outfile
+	java rsa_validate \-k $keyfile \-m $infile \-s $outfile
