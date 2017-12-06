@@ -30,7 +30,9 @@ public class rsa_dec{
 		original_msg = this.ciphertext;
 		original_msg = original_msg.modPow(key[2], key[1]);
 		
+
 		this.plaintext = original_msg;
+
 		
 		return;
 		

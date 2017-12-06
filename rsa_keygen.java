@@ -28,8 +28,10 @@ public class rsa_keygen {
 		private_keyfile = args[3];
 
 		//A. 2 large prime numbers, use a different seed for each
+]
 		p = BigInteger.probablePrime(num_bits/2, new SecureRandom());
 		q = BigInteger.probablePrime(num_bits/2, new SecureRandom());
+]
 
 
 		//B. Compute N , is private: p*q
@@ -56,6 +58,7 @@ public class rsa_keygen {
 
 			if (args[i].equals("-c")){
 				
+
 				i++;
 				key_data = rsa_funcs.read_integer_file(args[i]);
 				break;

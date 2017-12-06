@@ -216,7 +216,9 @@ public class rsa_funcs
 		
 		//This does ( int_msg )^e mod N 
 		//cipher_text = modex(int_msg, rsa_e, rsa_N);
+
 		BigInteger int_msg = message.modPow(rsa_e, rsa_N);
+
 		
 		return int_msg;
 		

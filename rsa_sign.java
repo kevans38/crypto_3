@@ -23,7 +23,9 @@ public class rsa_sign{
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
 		byte [] hashed_val = md.digest(message.getBytes("UTF-8"));
 			
+
 		B = new BigInteger(1, hashed_val);
+
 		
 		}catch(Exception e){
 			
