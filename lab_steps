@@ -20,7 +20,7 @@ Lock
 	the AES key
 
 
-	to lock: ./lock -d test1 -p unlock_pub -r lock_priv -v lock_pub
+	to lock: ./lock -d test1 -p unlock_pub -r lock_priv -v CA_public_key
 
 
 Unlock:
@@ -28,4 +28,4 @@ Unlock:
 	to the -p public key (lock_pub).  Then they decrypt the manifest file with their 
 	private key(unlock_priv).  Then decrypt everything with the AES key.
 
-	to unlock: ./unlock -d test1 -p lock_pub -r unlock_priv -v unlock_pub
+	to unlock: ./unlock -d test1 -p lock_pub -r unlock_priv -v CA_public_key
