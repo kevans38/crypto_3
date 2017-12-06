@@ -1,0 +1,24 @@
+Steps for lab 3:
+
+
+-done in lock:generate RSA keys (for each party?) 
+	./rsa-keygen -p pubkey -s seckey -n numbits -c ca (optional)
+
+
+
+
+Lock
+	Generate the AES key, encrypt it with the public key (unlock_pub) from -p flag 
+	and sign it with the private key from r flag (lock_priv).  Everything is encrypted with 
+	the AES key
+
+
+	to lock: ./lock -d test1 -p unlock_pub -r lock_priv -v lock_pub
+
+
+Unlock:
+	The person who can unlock it, comes in and checks to make sure the manifest sign corresponds
+	to the -p public key (lock_pub).  Then they decrypt the manifest file with their 
+	private key(unlock_priv).  Then decrypt everything with the AES key.
+
+	to unlock: ./unlock -d test1 -p lock_pub -r unlock_priv -v unlock_pub
