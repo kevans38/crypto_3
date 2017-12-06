@@ -1,5 +1,12 @@
 Steps for lab 3:
 
+1) rsa-sign and rsa-validate
+
+- rsa-sign takes a private key, a message, and an output file. It hashes the messages and then encrypts it with the private key.
+  The public key that corresponds to this private key will be used in validation.
+- rsa-validate takes a public key, a message, and a signature file. The signature file is the same that was created in rsa-sign.
+  It uses the public key to decrypt the signature file and compares that output to the hash of the message mod N. If they are
+  equal, then spit out True, otherwise False. The public key must correspond to the private key that signed the message originally.
 
 -done in lock:generate RSA keys (for each party?) 
 	./rsa-keygen -p pubkey -s seckey -n numbits -c ca (optional)
