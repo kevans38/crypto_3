@@ -24,7 +24,7 @@ public class rsa_validate{
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			byte [] hashed_val = md.digest(message.getBytes("UTF-8"));
 			
-			B = new BigInteger(hashed_val);
+			B = new BigInteger(1, hashed_val);
 
 
 
@@ -40,7 +40,7 @@ public class rsa_validate{
 		
 		rsa_dec R = new rsa_dec(key_data, S);
 		
-		if (R.plaintext.equals(B)){
+		if (R.plaintext.equals(B.mod(key_data[1]))){
 
 			System.out.println("True");
 		}else{
