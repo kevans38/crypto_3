@@ -55,7 +55,8 @@ public class rsa_keygen {
 		for (int i = 0; i < args.length; i++){
 
 			if (args[i].equals("-c")){
-
+				
+				System.out.println("FUCKKCKDISIDK");
 				i++;
 				key_data = rsa_funcs.read_integer_file(args[i]);
 				break;

@@ -2,7 +2,7 @@
 
 javac rsa_keygen.java
 c_exist=0
-while getopts :p:s:n: option
+while getopts :p:s:n:c: option
 	do
 		case "$option" in
 		p)

@@ -40,7 +40,7 @@ public class rsa_validate{
 		
 		rsa_dec R = new rsa_dec(key_data, S);
 		
-		if (R.plaintext.equals(B.mod(key_data[1]))){
+		if (R.plaintext.equals(B/*.mod(key_data[1])*/)){
 
 			System.out.println("True");
 		}else{
