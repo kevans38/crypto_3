@@ -8,14 +8,29 @@ Steps for lab 3:
   It uses the public key to decrypt the signature file and compares that output to the hash of the message mod N. If they are
   equal, then spit out True, otherwise False. The public key must correspond to the private key that signed the message originally.
 
--done in lock:generate RSA keys (for each party?) 
-	./rsa-keygen -p pubkey -s seckey -n numbits -c ca (optional)
+
+RSA keys are generated with rsa_keygen prior to any unlocking or locking. What I've been doing is running three different rsa_keygen
+commands:
+
+./rsa-keygen -p capub -s capriv -n 3072
+./rsa-keygen -p pub1 -s priv1 -n 3072 -c capriv
+./rsa-keygen -p pub2 -s priv2 -n 3072 -c capriv
+
+This will spit out 6 different files. All of the public keys have a signature from the Certificate Authority.
+The CA signs with the its private key (even its own public key). capub is the -vk flag for our lock and unlock functions
+as we will use it in ./rsa-validate to make sure that a public key was signed by a CA. This happens in lock.
 
 
 
 
 Lock
-	Generate the AES key, encrypt it with the public key (unlock_pub) from -p flag 
+	- Verify the integrity of the -p (unlock_pub). The -casig file for this public key is located in the same directory
+	  with '-casig' appended to the name. Run:
+	   ./rsa-validate -k CA_public_key -m unlock_pub -s unlock_pub-casig
+	   
+	   If this returns True, then unlock_pub was indeed signed by the CA and is verified.
+	
+	- Generate the AES key, encrypt it with the public key (unlock_pub) from -p flag 
 	and sign it with the private key from r flag (lock_priv).  Everything is encrypted with 
 	the AES key
 
