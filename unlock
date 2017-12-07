@@ -22,3 +22,4 @@ ca=$pubkey'-casig'
 echo "Public Key validated by Signing Authority"
 ./rsa-validate \-k $pubkey -m $directory'/manifest' \-s $directory'/manifest.sig' | grep 'False' && echo "Manifest Signature error" && exit 1
 echo "Symmetric Key Manifest Integrity Verified"
+java unlock $directory $pubkey $privkey
