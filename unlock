@@ -1,7 +1,7 @@
 #!/bin/bash
 
 javac unlock.java
-while getopts :d:p:r:vk: option
+while getopts :d:p:r:v: option
 	do
 		case "$option" in
 		d)
@@ -12,8 +12,13 @@ while getopts :d:p:r:vk: option
 			;;
 		r)	privkey="$OPTARG"
 			;;
-		vk)	vpk="$OPTARG"
+		v)	vpk="$OPTARG"
 			;;
 			esac
 	done
-	java unlock -d $directory -p $pubkey -r $privkey -vk $vpk
+
+ca=$pubkey'-casig'
+./rsa-validate \-k $vpk \-m $pubkey \-s $ca | grep 'False' && echo "Invalid public key" && exit 1
+echo "Public Key validated by Signing Authority"
+./rsa-validate \-k $pubkey -m $directory'/manifest' \-s $directory'/manifest.sig' | grep 'False' && echo "Manifest Signature error" && exit 1
+echo "Symmetric Key Manifest Integrity Verified"
