@@ -44,7 +44,12 @@ public class lock{
 				
 					cbcenc C = new cbcenc(aes_encryption, files[i].toString());
 					ctfuncs.write_file(files[i].toString(), C.cipher_text);
+					cbcmac_tag T = new cbcmac_tag(aes_encryption, C.cipher_text);
+					
+					String tagname = files[i].toString() + ".tag";
+					ctfuncs.write_file(tagname, T.tag);
 					C = null;
+					T = null;
 				}
 
 			}
