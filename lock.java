@@ -16,7 +16,6 @@ public class lock{
 			
 			/*Encrypt the AES key with action public key*/
 			key_data = rsa_funcs.read_integer_file(pubkey);
-			System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(aes_encryption));
 			idiot = new BigInteger(1, aes_encryption);
 			/*This currently does not encrypt. It just puts hex AES key in manifest file plainly!!!!*/
 		
@@ -29,7 +28,7 @@ public class lock{
 		}
 
 		
-
+		System.out.println("Bag it, Tag it");
 		try{
 			File dir = new File (path);
 			File [] files = dir.listFiles();
@@ -41,7 +40,7 @@ public class lock{
 					cbcenc C = new cbcenc(aes_encryption, files[i].toString());
 					ctfuncs.write_file(files[i].toString(), C.cipher_text);
 					cbcmac_tag T = new cbcmac_tag(aes_encryption, C.cipher_text);
-					
+					System.out.println("Encrypting and Tagging: " + files[i].toString());
 					String tagname = files[i].toString() + ".tag";
 					ctfuncs.write_file(tagname, T.tag);
 					C = null;
@@ -52,7 +51,6 @@ public class lock{
 			String manifestpath = path + "/manifest";	
 			
 			ctext = rsa_funcs.encrypt_data(key_data, idiot);
-			//rsa_funcs.write_file(manifestpath, javax.xml.bind.DatatypeConverter.printHexBinary(aes_encryption));
 			unlock_lock_funcs.write_string_to_file(manifestpath, ctext.toString());
 
 		}catch (Exception e){ 

@@ -225,7 +225,7 @@ public class unlock_lock_funcs
 		return bytes;
 	}	
 	
-	public static String manifest_aes_key( BigInteger[] key_data, String ciphertext )
+	public static byte[] manifest_aes_key( BigInteger[] key_data, String ciphertext )
 	{
 		/*
 		BigInteger rsa_number_of_bits = key_data[0];
@@ -234,10 +234,13 @@ public class unlock_lock_funcs
 	*/
 		BigInteger message = new BigInteger(ciphertext);
 		rsa_dec R = new rsa_dec(key_data, message);
-		String hex_aes_key = javax.xml.bind.DatatypeConverter.printHexBinary(R.plaintext.toByteArray());
-		System.out.println(hex_aes_key);
+		byte[] rv = R.plaintext.toByteArray();
+		if (R.plaintext.toByteArray().length > 32){
+			
+			rv = Arrays.copyOfRange(R.plaintext.toByteArray(), 1, 33);
 
-		return hex_aes_key;
+		}
+		return rv;
 
 		
 				

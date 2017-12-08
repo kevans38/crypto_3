@@ -2,7 +2,7 @@
 
 javac lock.java
 javac rsa_sign.java
-while getopts :d:p:r:v: option
+while getopts :d:p:r: option
 	do
 		case "$option" in
 		d)
@@ -13,14 +13,11 @@ while getopts :d:p:r:v: option
 			;;
 		r)	privkey="$OPTARG"
 			;;
-		v)	vpk="$OPTARG"
-			;;
 			esac
 	done
-
 #Lock creates an AES key, encrypts it with pubkey, and writes to symmetric key manifest
 ca=$pubkey'-casig'
-./rsa-validate \-k $vpk -m $pubkey -s $ca | grep 'False' && echo "Invalid public key" && exit 1
+./rsa-validate \-k $8 -m $pubkey -s $ca | grep 'False' && echo "Invalid public key" && exit 1
 echo "Public Key validated by Signing Authority"
 java lock $directory $pubkey
 java rsa_sign \-k $privkey -m $directory'/manifest' \-s $directory'/manifest.sig'

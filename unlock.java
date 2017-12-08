@@ -19,9 +19,9 @@ public class unlock{
 			
 			/*Encrypt the AES key with action public key*/
 			key_data = rsa_funcs.read_integer_file(privkey);
-			/*aes_key*/ String test = unlock_lock_funcs.read_string_file(manifestpath);
+			String test = unlock_lock_funcs.read_string_file(manifestpath);
 			//System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(aes_key));
-			unlock_lock_funcs.manifest_aes_key(key_data, test);
+			aes_key = unlock_lock_funcs.manifest_aes_key(key_data, test);
 	
 		}catch (Exception e){
 
@@ -72,6 +72,11 @@ public class unlock{
 				}
 
 			}
+
+			File this_file = new File(manifestpath);
+			File that_file = new File(mpsig);
+			this_file.delete();
+			that_file.delete();
 
 		}catch (Exception e){ 
 
