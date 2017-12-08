@@ -1,6 +1,8 @@
 //builds a tag for a given file message
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.lang.Object;
+import java.nio.ByteBuffer;
 
 
 public class cbcmac_tag{
@@ -13,12 +15,11 @@ public class cbcmac_tag{
 	
 	public cbcmac_tag (byte[] key_data, byte[] input_data){
 
-		byte[] iv_data = new byte[BLOCK_SIZE];
-		byte[] message_length = new byte[BLOCK_SIZE];
+		byte[] iv_data  = new byte[BLOCK_SIZE];
 		byte[][] input_blocks;
 		byte[] cipher_text;
 		byte[] temp_data = null;
-		
+
 		int input_size = input_data.length;
 		ByteBuffer msg_length = ByteBuffer.allocate(16);
 		msg_length.putInt(input_data.length);
