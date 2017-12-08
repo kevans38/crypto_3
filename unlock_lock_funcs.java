@@ -168,15 +168,84 @@ public class unlock_lock_funcs
 		}
 	}
 	
+
+	/* Reads the information in a file and puts it into a single string
+    * 
+    */
+   public static String read_string_file(String filename) throws Exception
+   {
+
+
+      try {
+            FileReader file = new FileReader(filename);
+
+            bufferedReader = new BufferedReader(file);
+
+            String data = "";
+            String line = null;
+
+            while((line=bufferedReader.readLine())!=null)
+            {
+               data += line;
+            }
+
+            return data;
+      }
+      catch (Exception e)
+      {
+         System.err.format("Exception occurred trying to read '%s'.", filename);
+         e.printStackTrace();
+         return null;
+      }
+   }	
+	
+	public static void write_string_to_file(String filename, String data) throws Exception
+   {
+
+      PrintWriter out = new PrintWriter(filename);
+      try
+         {
+            out.print(data);
+
+            out.close();
+         }
+         catch (Exception e)
+         {
+            System.err.format("Exception occurred trying to write '%s'.", filename);
+            e.printStackTrace();
+         }
+
+   }
+		
 	/*Generate random AES key for encryption and tagging*/
-        public static byte [] aes_keygen (int size){
+	public static byte [] aes_keygen (int size){
+		SecureRandom random  = new SecureRandom();
+		byte bytes[] = new byte[size/8];
+		random.nextBytes(bytes);
+		return bytes;
+	}	
+	
+	public static String manifest_aes_key( BigInteger[] key_data, String ciphertext )
+	{
+		/*
+		BigInteger rsa_number_of_bits = key_data[0];
+      BigInteger rsa_N = key_data[1];
+      BigInteger rsa_d = key_data[2];
+	*/
+		BigInteger message = new BigInteger(ciphertext);
+		rsa_dec R = new rsa_dec(key_data, message);
+		
+		String hex_aes_key = javax.xml.bind.DatatypeConverter.printHexBinary(R.plaintext.toByteArray());
+		System.out.println(hex_aes_key);
 
-                SecureRandom random  = new SecureRandom();
-                byte bytes[] = new byte[size/8];
-                random.nextBytes(bytes);
+		return hex_aes_key;
 
-                return bytes;
-        }	
+		
+				
+	}
+
+
+
 	
 	/* Just to print out the byte array
 	 */
@@ -190,6 +259,11 @@ public class unlock_lock_funcs
 	     }
 
 		System.out.println();
-	}	
+
+	}
+	
+
+
+
 
 }
