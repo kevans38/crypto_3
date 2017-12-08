@@ -16,7 +16,7 @@ public class lock{
 			
 			/*Encrypt the AES key with action public key*/
 			key_data = rsa_funcs.read_integer_file(pubkey);
-			System.out.print(javax.xml.bind.DatatypeConverter.printHexBinary(aes_encryption));
+			System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(aes_encryption));
 			BigInteger i = new BigInteger(aes_encryption);
 
 			/*This currently does not encrypt. It just puts hex AES key in manifest file plainly!!!!*/
@@ -37,7 +37,7 @@ public class lock{
 
 			for (int i = 0; i < files.length; i++){
 
-				if (files[i].isFile()){
+				if (!files[i].toString().endsWith(".tag")){
 				
 					cbcenc C = new cbcenc(aes_encryption, files[i].toString());
 					ctfuncs.write_file(files[i].toString(), C.cipher_text);

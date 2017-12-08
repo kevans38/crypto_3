@@ -20,7 +20,7 @@ public class unlock{
 			/*Encrypt the AES key with action public key*/
 			key_data = rsa_funcs.read_integer_file(pubkey);
 			aes_key = ctfuncs.read_hex_file(manifestpath);
-			System.out.print(javax.xml.bind.DatatypeConverter.printHexBinary(aes_key));
+			System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(aes_key));
 		
 	
 		}catch (Exception e){
@@ -48,8 +48,28 @@ public class unlock{
 					
 					if (C.validate) System.out.println("Verified " + files[i].toString());
 					else { System.out.println("Tag error on file: " + files[i].toString()); System.exit(1); }
+					
+					File this_tag = new File(tagpath);
+					this_tag.delete();
+					C = null;
+				}
 
-				}					
+
+			}
+
+			System.out.println("All encrypted file tags verified. Decrypting Now!!!");					
+			dir = new File(path);
+			files = dir.listFiles();
+
+			for (int i = 0; i < files.length; i++){
+
+				if (!files[i].toString().equals(manifestpath) && !files[i].toString().equals(mpsig)){
+
+					input_file = ctfuncs.read_file(files[i].toString());
+					cbcdec D = new cbcdec(aes_key, input_file);
+					ctfuncs.write_file(files[i].toString(), D.message);
+
+				}
 
 			}
 
