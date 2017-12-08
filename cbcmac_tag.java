@@ -19,14 +19,10 @@ public class cbcmac_tag{
 		byte[] cipher_text;
 		byte[] temp_data = null;
 		
-		int input_size;
-
-		input_size = input_data.length;
-
-		Arrays.fill(message_length, (byte)0);
-		message_length[0] = (byte)input_data.length;
-
-		iv_data = message_length;
+		int input_size = input_data.length;
+		ByteBuffer msg_length = ByteBuffer.allocate(16);
+		msg_length.putInt(input_data.length);
+		iv_data = msg_length.array();
 		
 		//create blocks and pad - using 128 bit blocks
 		input_blocks = ctfuncs.make_blocks(input_data, input_size);
