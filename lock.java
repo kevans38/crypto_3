@@ -11,14 +11,13 @@ public class lock{
 		BigInteger[] key_data = null;
 		byte aes_encryption[] = aes_keygen(256);
 		BigInteger ctext = BigInteger.ZERO;
-				
+		BigInteger idiot = BigInteger.ZERO;				
 		try{
 			
 			/*Encrypt the AES key with action public key*/
 			key_data = rsa_funcs.read_integer_file(pubkey);
 			System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(aes_encryption));
-			BigInteger i = new BigInteger(aes_encryption);
-
+			idiot = new BigInteger(1, aes_encryption);
 			/*This currently does not encrypt. It just puts hex AES key in manifest file plainly!!!!*/
 		
 				
@@ -51,9 +50,10 @@ public class lock{
 
 			}
 			String manifestpath = path + "/manifest";	
-			//ctext = rsa_funcs.encrypt_data(key_data, new BigInteger(aes_encryption));
-			rsa_funcs.write_file(manifestpath, javax.xml.bind.DatatypeConverter.printHexBinary(aes_encryption));
-
+			
+			ctext = rsa_funcs.encrypt_data(key_data, idiot);
+			//rsa_funcs.write_file(manifestpath, javax.xml.bind.DatatypeConverter.printHexBinary(aes_encryption));
+			unlock_lock_funcs.write_string_to_file(manifestpath, ctext.toString());
 
 		}catch (Exception e){ 
 

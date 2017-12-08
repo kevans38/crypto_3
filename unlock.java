@@ -18,10 +18,10 @@ public class unlock{
 		try{
 			
 			/*Encrypt the AES key with action public key*/
-			key_data = rsa_funcs.read_integer_file(pubkey);
-			aes_key = ctfuncs.read_hex_file(manifestpath);
-			System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(aes_key));
-		
+			key_data = rsa_funcs.read_integer_file(privkey);
+			/*aes_key*/ String test = unlock_lock_funcs.read_string_file(manifestpath);
+			//System.out.println(javax.xml.bind.DatatypeConverter.printHexBinary(aes_key));
+			unlock_lock_funcs.manifest_aes_key(key_data, test);
 	
 		}catch (Exception e){
 

@@ -234,7 +234,6 @@ public class unlock_lock_funcs
 	*/
 		BigInteger message = new BigInteger(ciphertext);
 		rsa_dec R = new rsa_dec(key_data, message);
-		
 		String hex_aes_key = javax.xml.bind.DatatypeConverter.printHexBinary(R.plaintext.toByteArray());
 		System.out.println(hex_aes_key);
 
