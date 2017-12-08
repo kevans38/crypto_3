@@ -9,33 +9,24 @@ public class cbcmac_tag{
 	// so 128 bits / 8 = 16 bytes
 	static int BLOCK_SIZE = BIT_BLOCK_SIZE/8;
 	
-	public static void main(String[] args) throws Exception
-	{
-		//use test_printing(byte[]) to print out a byte array
-		byte[] key_data;
-		byte[] input_data;
-		byte[] iv_data;
-		byte[] tag = null;
-		byte[] message_length = new byte[BLOCK_SIZE];
-		
-		byte[][] input_blocks;
+	byte[] tag = null;
+	
+	public cbcmac_tag (byte[] key_data, byte[] input_data){
 
+		byte[] iv_data;
+		byte[] message_length = new byte[BLOCK_SIZE];
+		byte[][] input_blocks;
 		byte[] cipher_text;
-		
 		byte[] temp_data = null;
 		
 		int input_size;
-		
-		//open files from cmd line args
-		key_data = ctfuncs.key_file(args);
-		input_data = ctfuncs.input_file_msg(args);
+
 		input_size = input_data.length;
-		
-		//iv_data = ctfuncs.iv_file(args);
 
 		Arrays.fill(message_length, (byte)0);
 		message_length[0] = (byte)input_data.length;
-		iv_data = message_length;// first iv is message length
+
+		iv_data = message_length;
 		
 		//create blocks and pad - using 128 bit blocks
 		input_blocks = ctfuncs.make_blocks(input_data, input_size);
@@ -46,7 +37,8 @@ public class cbcmac_tag{
 		cipher_text = new byte[(input_blocks.length+1)*BLOCK_SIZE];
 		
 		cipher_text = ctfuncs.append_bytes(cipher_text, iv_data, 0);
-		
+	
+		try{	
 		//XOR Message: 1st with IV, then remaining with ciphertext
 		for ( int i = 0; i < input_blocks.length; i++ )
 		{
@@ -65,8 +57,32 @@ public class cbcmac_tag{
 
 		}
 		tag = temp_data;
+		}catch (Exception e){
+
+
+			System.out.println("Error creating tag");
+			System.exit(1);
+		}
+
+
+	}
+
+	public static void main(String[] args) throws Exception
+	{
+		//use test_printing(byte[]) to print out a byte array
+		byte[] key_data;
+		byte[] input_data;
 		
+		int input_size;
+		
+		//open files from cmd line args
+		key_data = ctfuncs.key_file(args);
+		input_data = ctfuncs.input_file_msg(args);
+		
+		cbcmac_tag C = new cbcmac_tag (key_data, input_data);	
+	
+
 		//create encrypted file
-		ctfuncs.output_file_tag(args, tag);
+		ctfuncs.output_file_tag(args, C.tag);
 	}
 }
