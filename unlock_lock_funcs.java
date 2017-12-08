@@ -168,6 +168,7 @@ public class unlock_lock_funcs
 		}
 	}
 	
+
 	/* Reads the information in a file and puts it into a single string
     * 
     */
@@ -244,6 +245,7 @@ public class unlock_lock_funcs
 	}
 
 
+
 	
 	/* Just to print out the byte array
 	 */
@@ -257,8 +259,10 @@ public class unlock_lock_funcs
 	     }
 
 		System.out.println();
+
 	}
 	
+
 
 
 

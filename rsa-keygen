@@ -1,0 +1,26 @@
+#!/bin/bash
+
+javac rsa_keygen.java
+c_exist=0
+while getopts :p:s:n:c: option
+	do
+		case "$option" in
+		p)
+			public_keyfile="$OPTARG"
+			;;
+		s)
+			secret_keyfile="$OPTARG"
+			;;
+		n)	
+			numbits="$OPTARG"
+			;;
+		c)	cafile="$OPTARG"
+			c_exist=1
+			;;
+			esac
+	done
+if [ "$c_exist" = "1" ]; then
+	java rsa_keygen -p $public_keyfile -s $secret_keyfile -n $numbits -c $cafile
+else
+	java rsa_keygen -p $public_keyfile -s $secret_keyfile -n $numbits
+fi

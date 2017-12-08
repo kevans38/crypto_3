@@ -27,23 +27,12 @@ public class rsa_dec{
 
 
 		/*Take the ciphertext and raise it by (c^d) mod N or put another way: ((m^e)^d) mod N*/
-		//original_msg = rsa_funcs.modex(this.ciphertext,key[2],key[1]);
 		original_msg = this.ciphertext;
+		original_msg = original_msg.modPow(key[2], key[1]);
 		
-		original_msg.modPow(key[2], key[1]);
-		
-		original_bytes = original_msg.toByteArray();
-		
-		/*Go through the cipher text until we find the 0x00 byte*/	
-		x = 0;
-		while(true){
-				if (original_bytes[x] == 0x00) break;
-				x += 1;
-		}
-		
-		/*The remaining bytes are the plaintext!!*/
-		plain_bytes = Arrays.copyOfRange(original_bytes, (x + 1), original_bytes.length);
-		this.plaintext = new BigInteger(plain_bytes);
+
+		this.plaintext = original_msg;
+
 		
 		return;
 		
