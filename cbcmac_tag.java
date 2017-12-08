@@ -13,7 +13,7 @@ public class cbcmac_tag{
 	
 	public cbcmac_tag (byte[] key_data, byte[] input_data){
 
-		byte[] iv_data;
+		byte[] iv_data = new byte[BLOCK_SIZE];
 		byte[] message_length = new byte[BLOCK_SIZE];
 		byte[][] input_blocks;
 		byte[] cipher_text;
