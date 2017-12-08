@@ -11,7 +11,7 @@ public class cbcmac_validate {
 	
 	public cbcmac_validate (byte[] key_data, byte[] input_data, byte[] intag){
 
-		byte[] iv_data;
+		byte[] iv_data = new byte[BLOCK_SIZE];
 		byte[] tag = null;
 		byte[] message_length = new byte[BLOCK_SIZE];
 		byte[][] input_blocks;
