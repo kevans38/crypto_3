@@ -1,5 +1,7 @@
 //validates a tag for a given file and tag
 import java.util.Arrays;
+import java.lang.Object;
+import java.nio.ByteBuffer;
 
 
 public class cbcmac_validate {
@@ -13,17 +15,14 @@ public class cbcmac_validate {
 
 		byte[] iv_data = new byte[BLOCK_SIZE];
 		byte[] tag = null;
-		byte[] message_length = new byte[BLOCK_SIZE];
 		byte[][] input_blocks;
 		byte[] cipher_text;
 		byte[] temp_data = null;
 		
 		int input_size = input_data.length;
-
-				
-		Arrays.fill(message_length, (byte)0);
-		message_length[0] = (byte)input_data.length;
-		iv_data = message_length;// first iv is message length
+		ByteBuffer msg_length = ByteBuffer.allocate(16);
+		msg_length.putInt(input_data.length);
+		iv_data = msg_length.array();
 		
 		try{		
 		//create blocks and pad - using 128 bit blocks
